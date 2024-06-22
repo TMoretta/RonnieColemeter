@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,9 +21,10 @@ public class MainActivity extends AppCompatActivity {
     private EditText etWeight;
     private GridLayout container;
     private Button btnSubmit;
+    private TextView tvHowMany;
     private Bitmap bitmapRC;
     private final int RC = 135;
-    private ArrayList<ImageView> ivList = new ArrayList<>();
+    private final ArrayList<ImageView> ivList = new ArrayList<>();
     private int displayWidth;
     private int bitmapRCWidth;
     private int bitmapRCHeight;
@@ -31,41 +33,36 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         displayWidth = getResources().getDisplayMetrics().widthPixels;
         etWeight = findViewById(R.id.etWeight);
         btnSubmit = findViewById(R.id.btnSubmit);
         container = findViewById(R.id.container);
-
+        tvHowMany = findViewById(R.id.tvHowMany);
         bitmapRC = ((BitmapDrawable) Objects.requireNonNull(ResourcesCompat.getDrawable(getResources(), R.drawable.rc, null))).getBitmap();
         bitmapRCWidth = displayWidth / 9;
         bitmapRCHeight = bitmapRCWidth * 1044 / 538;
         bitmapRC = Bitmap.createScaledBitmap(bitmapRC, bitmapRCWidth, bitmapRCHeight, true);
-
         btnSubmit.setOnClickListener(e -> btnSubmitClicked());
-
     }
 
     private void btnSubmitClicked() {
         ivList.clear();
         container.removeAllViews();
-
+        tvHowMany.setVisibility(TextView.VISIBLE);
         String weightStr = etWeight.getText().toString();
-        double weight = 0;
+        double weight = 0.0;
         if (weightStr.matches("\\d+([.,]\\d*)*")) {
             weight = Double.parseDouble(weightStr);
         }
-        if (weight == 0) {
+        if (weight == 0.0) {
             return;
         }
-
         int fullRcNumber = (int) weight / RC;
         for (int i = 0; i < fullRcNumber; i++) {
             ImageView iv = new ImageView(MainActivity.this);
             iv.setImageBitmap(bitmapRC);
             ivList.add(iv);
         }
-
         double partialRcSize = weight % RC;
         if (partialRcSize != 0) {
             double rcHeightUnit = (double) bitmapRCHeight / RC;
@@ -75,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
             iv.setImageBitmap(bitmapPartialRC);
             ivList.add(iv);
         }
-
         int row = 0;
         int col = 0;
         for (ImageView iv : ivList) {
@@ -91,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
             }
             container.addView(iv);
         }
-
     }
 
 }

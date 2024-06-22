@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="How many kg do you lift?"
+            android:text="@string/how_many_kg"
             android:textSize="20sp" />
 
         <LinearLayout
@@ -27,33 +27,37 @@
 
             <EditText
                 android:id="@+id/etWeight"
-                android:layout_width="150dp"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:layout_marginEnd="10dp"
+                android:hint="@string/number0"
+                android:inputType="numberDecimal" />
 
             <Button
                 android:id="@+id/btnSubmit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Submit" />
+                android:text="@string/submit" />
 
         </LinearLayout>
 
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tv"
+        android:id="@+id/tvHowMany"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/llSubmit"
         android:layout_marginTop="20dp"
-        android:text="These are how many Ronnie Coleman you can lift:"
-        android:textSize="16sp" />
+        android:text="@string/these_are_how_many"
+        android:textSize="16sp"
+        android:visibility="invisible" />
 
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv"
+        android:layout_below="@id/tvHowMany"
         android:layout_marginTop="30dp">
 
         <GridLayout
